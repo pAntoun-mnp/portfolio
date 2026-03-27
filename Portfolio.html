@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peter Antoun – CV</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+--navy: #0d1b2a;
+--deep: #111e2e;
+--accent: #c9a84c;
+--accent2: #e8c97a;
+--light: #f0ece0;
+--muted: #7a8fa8;
+--border: rgba(201,168,76,0.15);
+}
+html, body {
+width: 100%; min-height: 100vh;
+background: #080f1a;
+display: flex; align-items: flex-start; justify-content: center;
+font-family: Arial, Helvetica, sans-serif;
+padding: 28px 16px;
+}
+.cv-wrapper { width: 1280px; display: flex; flex-direction: column; gap: 20px; }
+.page {
+width: 1280px; min-height: 720px;
+background: var(--navy);
+position: relative; overflow: hidden;
+box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+}
+.page::before {
+content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+/* ── PAGE 1 ── */
+#page1 { display: grid; grid-template-columns: 290px 1fr 290px; grid-template-rows: auto 1fr; }
+#page1::after {
+content: ‘’; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+width: 600px; height: 400px;
+background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+pointer-events: none; z-index: 0;
+}
+
+/* NAME HERO */
+.name-hero {
+grid-column: 1 / -1;
+text-align: center;
+padding: 44px 40px 28px;
+border-bottom: 1px solid var(–border);
+position: relative; z-index: 2;
+}
+.name-hero .lbl { font-size: 9px; letter-spacing: 5px; text-transform: uppercase; color: var(–accent); font-weight: bold; margin-bottom: 10px; font-family: Arial, Helvetica, sans-serif; }
+.name-hero h1 { font-family: Arial Black, Arial, Helvetica, sans-serif; font-size: 82px; font-weight: 900; color: var(–light); line-height: 0.92; letter-spacing: -1px; }
+.name-hero h1 .first { font-weight: 400; font-family: Arial, Helvetica, sans-serif; color: var(–light); }
+.name-hero h1 .last { font-weight: 900; font-family: Arial Black, Arial, Helvetica, sans-serif; color: var(–accent); }
+.name-hero .tagline { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(–muted); margin-top: 14px; font-family: Arial, Helvetica, sans-serif; }
+.name-divider { width: 48px; height: 1px; background: var(–accent); margin: 12px auto 0; opacity: 0.5; }
+
+/* SIDEBARS */
+.sidebar-left { padding: 30px 24px 30px 32px; border-right: 1px solid var(–border); display: flex; flex-direction: column; gap: 24px; position: relative; z-index: 2; }
+.sidebar-right { padding: 30px 32px 30px 24px; border-left: 1px solid var(–border); display: flex; flex-direction: column; gap: 22px; position: relative; z-index: 2; }
+.center-col { padding: 30px 34px; display: flex; flex-direction: column; gap: 26px; position: relative; z-index: 2; }
+
+.sec-label { font-size: 8px; font-weight: bold; letter-spacing: 3.5px; text-transform: uppercase; color: var(–accent); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; font-family: Arial, Helvetica, sans-serif; }
+.sec-label::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
+
+/* Contact */
+.ci { display: flex; align-items: center; gap: 9px; color: var(–light); font-size: 11.5px; text-decoration: none; margin-bottom: 8px; transition: color 0.2s; font-family: Arial, Helvetica, sans-serif; }
+.ci:hover { color: var(–accent2); }
+.ci-icon { width: 24px; height: 24px; border-radius: 5px; background: rgba(201,168,76,0.1); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(–accent); flex-shrink: 0; }
+
+/* Languages */
+.li { margin-bottom: 10px; }
+.lr { display: flex; justify-content: space-between; font-size: 11.5px; color: var(–light); margin-bottom: 4px; font-family: Arial, Helvetica, sans-serif; }
+.lr span:last-child { font-size: 9px; color: var(–muted); }
+.lb { height: 2px; background: rgba(255,255,255,0.07); border-radius: 2px; }
+.lf { height: 100%; background: linear-gradient(90deg, var(–accent), var(–accent2)); border-radius: 2px; }
+
+/* Interests */
+.ii { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 9px; }
+.ii-icon { font-size: 13px; margin-top: 1px; }
+.ii-txt { font-size: 11px; color: var(–muted); line-height: 1.4; font-family: Arial, Helvetica, sans-serif; }
+.ii-txt b { color: var(–light); font-size: 11.5px; display: block; margin-bottom: 1px; font-family: Arial, Helvetica, sans-serif; }
+
+/* Profile */
+.profile-text { font-family: Arial, Helvetica, sans-serif; font-size: 13.5px; line-height: 1.75; color: #aabbc9; }
+.profile-text em { color: var(–accent2); font-style: normal; font-weight: bold; }
+
+/* Skills tags */
+.tags { display: flex; flex-wrap: wrap; gap: 7px; }
+.tag { font-size: 10px; padding: 3px 10px; border-radius: 20px; background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.2); color: var(–accent2); font-family: Arial, Helvetica, sans-serif; }
+
+/* SKILL TREE */
+.skill-tree { display: flex; flex-direction: column; align-items: center; }
+.st-schools { display: flex; gap: 20px; width: 100%; justify-content: center; }
+.st-school {
+flex: 1; max-width: 195px;
+background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.22);
+border-radius: 10px; padding: 11px 13px; text-align: center;
+}
+.st-sn { font-family: Arial Black, Arial, Helvetica, sans-serif; font-size: 12.5px; font-weight: 900; color: var(–light); line-height: 1.2; }
+.st-sf { font-size: 9px; color: var(–accent); margin-top: 3px; letter-spacing: 0.3px; font-family: Arial, Helvetica, sans-serif; }
+.st-sl { font-size: 8.5px; color: var(–muted); margin-top: 2px; font-family: Arial, Helvetica, sans-serif; }
+
+.st-merge { display: flex; width: 100%; max-width: 410px; height: 38px; }
+.st-branch { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.st-bv { width: 1px; flex: 1; background: linear-gradient(to bottom, rgba(201,168,76,0.5), rgba(201,168,76,0.25)); }
+.st-bh { width: 100%; height: 1px; background: rgba(201,168,76,0.3); }
+.st-center-dot { display: flex; flex-direction: column; align-items: center; width: 12px; flex-shrink: 0; }
+.st-dot { width: 10px; height: 10px; border-radius: 50%; background: var(–accent); box-shadow: 0 0 8px rgba(201,168,76,0.5); margin-top: 22px; }
+
+.st-down { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 410px; }
+.st-dv { width: 1px; height: 14px; background: linear-gradient(to bottom, rgba(201,168,76,0.4), rgba(201,168,76,0.2)); }
+.st-output {
+background: linear-gradient(135deg, rgba(201,168,76,0.16), rgba(201,168,76,0.05));
+border: 1px solid rgba(201,168,76,0.38);
+border-radius: 10px; padding: 11px 18px; text-align: center; width: 100%; max-width: 310px;
+}
+.st-od { font-family: Arial Black, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 900; color: var(–accent2); }
+.st-os { font-size: 9px; color: var(–muted); margin-top: 5px; letter-spacing: 0.3px; font-family: Arial, Helvetica, sans-serif; }
+
+/* ── PAGE 2 ── */
+#page2 { display: grid; grid-template-columns: 1fr 380px; min-height: 720px; }
+
+.exp-panel { padding: 38px 42px 34px; display: flex; flex-direction: column; border-right: 1px solid var(–border); }
+.p2h { font-family: Arial Black, Arial, Helvetica, sans-serif; font-size: 10px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; color: var(–accent); margin-bottom: 6px; display: flex; align-items: center; gap: 12px; }
+.p2h::after { content: ‘’; flex: 1; height: 1px; background: linear-gradient(90deg, var(–border), transparent); }
+
+.btn-hint { font-size: 11px; color: var(–muted); margin-bottom: 14px; display: flex; align-items: center; gap: 5px; font-family: Arial, Helvetica, sans-serif; }
+.btn-hint strong { color: var(–light); font-family: Arial, Helvetica, sans-serif; }
+
+.exp-switcher { display: flex; gap: 10px; margin-bottom: 22px; flex-wrap: wrap; }
+.exp-btn {
+padding: 10px 18px; border-radius: 8px;
+border: 1.5px solid rgba(201,168,76,0.2);
+background: transparent; color: var(–muted);
+font-family: Arial, Helvetica, sans-serif; font-size: 12.5px; font-weight: bold;
+cursor: pointer; transition: all 0.22s ease;
+display: flex; align-items: center; gap: 8px;
+}
+.exp-btn .bnum { width: 22px; height: 22px; border-radius: 50%; background: rgba(201,168,76,0.08); color: var(–accent); font-size: 10px; font-weight: bold; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.22s; font-family: Arial Black, Arial, sans-serif; }
+.exp-btn:hover { border-color: var(–accent); color: var(–light); }
+.exp-btn.active { background: linear-gradient(135deg,rgba(201,168,76,0.18),rgba(201,168,76,0.05)); border-color: var(–accent); color: var(–accent2); box-shadow: 0 0 24px rgba(201,168,76,0.12); }
+.exp-btn.active .bnum { background: var(–accent); color: var(–navy); }
+
+.exp-content { display: none; }
+.exp-content.active { display: block; animation: fadeSlide 0.3s ease; }
+@keyframes fadeSlide { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+.exp-role { font-family: Arial Black, Arial, Helvetica, sans-serif; font-size: 28px; font-weight: 900; color: var(–light); line-height: 1.1; }
+.exp-co-row { display: flex; align-items: center; gap: 12px; margin: 4px 0 14px; flex-wrap: wrap; }
+.exp-co { font-size: 13.5px; color: var(–accent2); font-weight: bold; font-family: Arial, Helvetica, sans-serif; }
+.chip { font-size: 9.5px; padding: 2px 8px; border: 1px solid rgba(201,168,76,0.2); border-radius: 20px; color: var(–muted); font-family: Arial, Helvetica, sans-serif; }
+
+.exp-bullets { list-style: none; margin-bottom: 14px; }
+.exp-bullets li { display: flex; gap: 10px; font-size: 12.5px; color: #8ca0b5; line-height: 1.6; margin-bottom: 6px; align-items: flex-start; font-family: Arial, Helvetica, sans-serif; }
+.exp-bullets li::before { content: ‘—’; color: var(–accent); font-size: 11px; margin-top: 3px; flex-shrink: 0; }
+.exp-bullets li strong { color: var(–light); font-weight: bold; font-family: Arial, Helvetica, sans-serif; }
+
+.works-lbl { font-size: 8px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; color: var(–accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-family: Arial, Helvetica, sans-serif; }
+.works-lbl::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
+
+.work-cards { display: flex; gap: 10px; }
+.work-card {
+flex: 1; background: rgba(255,255,255,0.022);
+border: 1.5px dashed rgba(201,168,76,0.2); border-radius: 9px;
+padding: 12px 13px; cursor: pointer; transition: all 0.2s; position: relative;
+}
+.work-card:hover { background: rgba(201,168,76,0.06); border-color: var(–accent); border-style: solid; }
+.wc-badge { position: absolute; top: 7px; right: 7px; font-size: 7.5px; padding: 2px 6px; border-radius: 4px; background: rgba(201,168,76,0.1); color: var(–accent); font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase; font-family: Arial, Helvetica, sans-serif; }
+.wc-icon { font-size: 17px; margin-bottom: 5px; }
+.wc-title { font-size: 11.5px; font-weight: bold; color: var(–light); margin-bottom: 2px; font-family: Arial, Helvetica, sans-serif; }
+.wc-desc { font-size: 10px; color: var(–muted); line-height: 1.5; font-family: Arial, Helvetica, sans-serif; }
+.wc-link { display: inline-flex; align-items: center; gap: 4px; font-size: 9px; color: var(–accent); margin-top: 7px; font-weight: bold; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; font-family: Arial, Helvetica, sans-serif; }
+.wc-link:hover { color: var(–accent2); }
+
+/* Radar */
+.radar-panel { background: var(–deep); padding: 38px 24px 30px; display: flex; flex-direction: column; align-items: center; }
+.r-heading { font-size: 8px; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; color: var(–accent); text-align: center; margin-bottom: 4px; font-family: Arial, Helvetica, sans-serif; }
+.r-sub { font-size: 10px; color: var(–muted); text-align: center; margin-bottom: 16px; transition: all 0.3s; font-family: Arial, Helvetica, sans-serif; }
+.chart-wrap { width: 286px; height: 286px; position: relative; }
+.skill-legend { margin-top: 14px; width: 100%; }
+.sli { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.sli-name { font-size: 10px; color: var(–muted); flex: 1; font-family: Arial, Helvetica, sans-serif; }
+.sli-bw { width: 50px; height: 2px; background: rgba(255,255,255,0.07); border-radius: 2px; margin: 0 9px; }
+.sli-bf { height: 100%; background: linear-gradient(90deg, var(–accent), var(–accent2)); border-radius: 2px; }
+.sli-val { font-size: 11px; font-weight: bold; color: var(–accent2); width: 26px; text-align: right; font-family: Arial, Helvetica, sans-serif; }
+</style>
+
+</head>
+<body>
+<div class="cv-wrapper">
+
+<!-- ══════════ PAGE 1 ══════════ -->
+
+<div class="page" id="page1">
+
+<div class="name-hero">
+<div class="lbl">Curriculum Vitæ</div>
+<h1><span class="first">Peter&nbsp;</span><span class="last">Antoun</span></h1>
+<div class="tagline">Digital Marketing &nbsp;·&nbsp; Data-Driven Growth &nbsp;·&nbsp; Campaign Management</div>
+<div class="name-divider"></div>
+</div>
+
+<!-- LEFT SIDEBAR -->
+
+<div class="sidebar-left">
+<div>
+<div class="sec-label">Contact</div>
+<a class="ci" href="/cdn-cgi/l/email-protection#ceafa0baa1bba0beabbaabbc8ea9a3afa7a2e0ada1a3"><div class="ci-icon">✉</div><span class="__cf_email__" data-cfemail="53323d273c263d233627362113343e323a3f7d303c3e">[email&#160;protected]</span></a>
+<a class="ci" href="tel:+33666181574"><div class="ci-icon">📞</div>+33 6 66 18 15 74</a>
+<div class="ci"><div class="ci-icon">📍</div>Paris, France</div>
+<a class="ci" href="https://linkedin.com/in/peterantoun" target="_blank"><div class="ci-icon">in</div>linkedin.com/in/peterantoun</a>
+<a class="ci" href="https://github.com/PeterAntoun" target="_blank"><div class="ci-icon">⌥</div>github.com/PeterAntoun</a>
+</div>
+
+```
+<div>
+<div class="sec-label">Langues</div>
+<div class="li">
+<div class="lr"><span>Anglais</span><span>Natif</span></div>
+<div class="lb"><div class="lf" style="width:100%"></div></div>
+</div>
+<div class="li">
+<div class="lr"><span>Arabe</span><span>Natif</span></div>
+<div class="lb"><div class="lf" style="width:100%"></div></div>
+</div>
+<div class="li">
+<div class="lr"><span>Français</span><span>Courant</span></div>
+<div class="lb"><div class="lf" style="width:85%"></div></div>
+</div>
+</div>
+
+<div>
+<div class="sec-label">Intérêts</div>
+<div class="ii"><div class="ii-icon">🥊</div><div class="ii-txt"><b>Sports de Combat</b>Muay Thai &amp; Jiu-Jitsu</div></div>
+<div class="ii"><div class="ii-icon">🤖</div><div class="ii-txt"><b>IA &amp; Productivité</b>Automatisation &amp; décision</div></div>
+<div class="ii"><div class="ii-icon">📚</div><div class="ii-txt"><b>Livres</b>Business &amp; philosophie</div></div>
+<div class="ii"><div class="ii-icon">₿</div><div class="ii-txt"><b>Blockchain &amp; Crypto</b>Veille technologique</div></div>
+</div>
+```
+
+</div>
+
+<!-- CENTER -->
+
+<div class="center-col">
+<div>
+<div class="sec-label">Profil</div>
+<p class="profile-text">
+Passionné par le <em>marketing digital</em> et l'acquisition de clients à grande échelle, j'intègre une approche <em>data-driven</em> pour maximiser la visibilité en ligne et la <em>conversion client</em>. Expérience dans la création de contenu, la gestion de campagnes publicitaires et l'optimisation des performances digitales.
+</p>
+</div>
+<div>
+<div class="sec-label">Formation — Double Diplôme</div>
+<div class="skill-tree">
+<div class="st-schools">
+<div class="st-school">
+<div class="st-sn">Audencia<br>Business School</div>
+<div class="st-sf">Management &amp; Strategy</div>
+<div class="st-sl">Nantes, France</div>
+</div>
+<div class="st-school">
+<div class="st-sn">École Centrale<br>de Nantes</div>
+<div class="st-sf">Data &amp; AI Engineering</div>
+<div class="st-sl">Nantes, France</div>
+</div>
+</div>
+<div class="st-merge" style="max-width:410px;">
+<div class="st-branch"><div class="st-bv"></div><div class="st-bh"></div></div>
+<div class="st-center-dot"><div class="st-dot"></div></div>
+<div class="st-branch"><div class="st-bv"></div><div class="st-bh"></div></div>
+</div>
+<div class="st-down">
+<div class="st-dv"></div>
+<div class="st-output">
+<div class="st-od">🎓 Double Diplôme — BBA</div>
+<div style="font-family:Arial,sans-serif;font-size:12px;color:var(--accent2);margin-top:3px;font-weight:bold;">Data, AI &amp; Management</div>
+<div class="st-os">Sept. 2021 — Mars 2025 &nbsp;·&nbsp; Nantes, France</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- RIGHT SIDEBAR -->
+
+<div class="sidebar-right">
+<div>
+<div class="sec-label">Compétences clés</div>
+<div class="tags">
+<span class="tag">Meta Ads</span>
+<span class="tag">Google Ads</span>
+<span class="tag">Data Analysis</span>
+<span class="tag">Content Creation</span>
+<span class="tag">A/B Testing</span>
+<span class="tag">Lead Generation</span>
+<span class="tag">BI Dashboards</span>
+<span class="tag">Social Media</span>
+<span class="tag">Automation Ops</span>
+<span class="tag">Campaign Optim.</span>
+<span class="tag">Branding</span>
+<span class="tag">CRM</span>
+</div>
+</div>
+
+```
+<div style="margin-top:auto;">
+<div class="sec-label">Page suivante</div>
+<p style="font-size:11px;color:var(--muted);line-height:1.7;font-family:Arial,sans-serif;">
+👉 Voir la <strong style="color:var(--light)">page suivante</strong> pour les expériences professionnelles détaillées, compétences mobilisées et exemples de travaux réalisés.
+</p>
+</div>
+```
+
+</div>
+
+</div><!-- /page1 -->
+
+<!-- ══════════ PAGE 2 ══════════ -->
+
+<div class="page" id="page2">
+
+<div class="exp-panel">
+<div class="p2h">Monoprix</div>
+<div class="btn-hint">Marketing &amp; Data — Acquisition / Performance &nbsp;·&nbsp; 👆 <strong>Cliquez sur un projet</strong> pour voir les détails et les compétences mobilisées :</div>
+
+```
+<div class="exp-switcher">
+<button class="exp-btn active" onclick="switchExp(0)" id="btn0"><span class="bnum">1</span> Reporting Automation</button>
+<button class="exp-btn" onclick="switchExp(1)" id="btn1"><span class="bnum">2</span> Funnel / Conversion</button>
+<button class="exp-btn" onclick="switchExp(2)" id="btn2"><span class="bnum">3</span> Campaign Performance</button>
+</div>
+
+<!-- ── PROJECT 0 : REPORTING AUTOMATION ── -->
+<div class="exp-content active" id="exp0">
+<div class="exp-role">Reporting Automation</div>
+<div class="exp-co-row">
+<span class="exp-co">Monoprix — Marketing &amp; Data</span>
+<span class="chip">📅 Sept. 2025 — Avril 2026</span>
+<span class="chip">📍 Paris, France</span>
+</div>
+<ul class="exp-bullets">
+<li>Automatisation de reportings via <strong>SQL, Excel et TypeScript</strong> pour réduire le temps de traitement manuel.</li>
+<li>Structuration et modélisation des données pour le <strong>suivi des performances</strong> marketing en temps réel.</li>
+<li>Mise en place de <strong>dashboards KPIs</strong> automatisés connectés aux sources de données internes.</li>
+</ul>
+<div class="works-lbl">Travaux &amp; réalisations — cliquez pour accéder</div>
+<div class="work-cards">
+<div class="work-card" onclick="window.open('https://drive.google.com/file/d/1TttnUUVc3Az6s-wS0un0BgvDSYAgNuXr/view?usp=sharing','_blank')">
+<div class="wc-badge">Disponible</div>
+<div class="wc-icon">📊</div>
+<div class="wc-title">Dashboard KPIs</div>
+<div class="wc-desc">Reporting automatisé et suivi des performances digitales.</div>
+<span class="wc-link">→ Voir le dashboard</span>
+</div>
+</div>
+</div>
+
+<!-- ── PROJECT 1 : FUNNEL / CONVERSION ── -->
+<div class="exp-content" id="exp1">
+<div class="exp-role">Funnel / Conversion Analysis</div>
+<div class="exp-co-row">
+<span class="exp-co">Monoprix — Marketing &amp; Data</span>
+<span class="chip">📅 Sept. 2025 — Avril 2026</span>
+<span class="chip">📍 Paris, France</span>
+</div>
+<ul class="exp-bullets">
+<li>Analyse du <strong>funnel de conversion</strong> : identification des points de friction et des leviers d'optimisation.</li>
+<li>Mise en place de tests <strong>A/B</strong> pour valider les hypothèses d'optimisation sur les parcours d'achat.</li>
+<li>Visualisation des données de conversion via des <strong>dashboards analytiques</strong> pour orienter les décisions marketing.</li>
+</ul>
+<div class="works-lbl">Travaux &amp; réalisations — cliquez pour accéder</div>
+<div class="work-cards">
+<div class="work-card" onclick="window.open('VOTRE_LIEN_ICI','_blank')">
+<div class="wc-badge">À remplir</div>
+<div class="wc-icon">🔍</div>
+<div class="wc-title">Analyse Funnel</div>
+<div class="wc-desc">Rapport d'analyse des taux de conversion par étape du parcours.</div>
+<span class="wc-link">→ Voir l'analyse</span>
+</div>
+</div>
+</div>
+
+<!-- ── PROJECT 2 : CAMPAIGN PERFORMANCE ── -->
+<div class="exp-content" id="exp2">
+<div class="exp-role">Campaign Performance Analysis</div>
+<div class="exp-co-row">
+<span class="exp-co">Monoprix — Marketing &amp; Data</span>
+<span class="chip">📅 Sept. 2025 — Avril 2026</span>
+<span class="chip">📍 Paris, France</span>
+</div>
+<ul class="exp-bullets">
+<li>Pilotage et optimisation des <strong>campagnes Meta Ads &amp; Google Ads</strong> : ajustement des enchères, ciblages et créatifs.</li>
+<li>Suivi des KPIs clés (ROAS, CTR, CPC) et <strong>reporting de performance</strong> hebdomadaire pour les équipes.</li>
+<li>Analyse des données de campagne pour <strong>optimiser l'allocation budgétaire</strong> et maximiser le ROI.</li>
+</ul>
+<div class="works-lbl">Travaux &amp; réalisations — cliquez pour accéder</div>
+<div class="work-cards">
+<div class="work-card" onclick="window.open('VOTRE_LIEN_ICI','_blank')">
+<div class="wc-badge">À remplir</div>
+<div class="wc-icon">🎯</div>
+<div class="wc-title">Performance Report</div>
+<div class="wc-desc">Analyse comparative des campagnes Meta &amp; Google Ads.</div>
+<span class="wc-link">→ Voir le rapport</span>
+</div>
+</div>
+</div>
+```
+
+</div>
+
+<!-- RADAR PANEL -->
+
+<div class="radar-panel">
+<div class="r-heading">Compétences mobilisées</div>
+<div class="r-sub" id="radarSub">Reporting Automation</div>
+<div class="chart-wrap"><canvas id="radarChart"></canvas></div>
+<div class="skill-legend" id="skillLegend"></div>
+</div>
+
+</div><!-- /page2 -->
+
+</div><!-- /cv-wrapper -->
+
+<script>
+const projects = [
+{
+label: 'Reporting Automation',
+skills: ['SQL', 'Excel', 'TypeScript', 'Data Modeling', 'Automation', 'BI Tools'],
+values: [85, 90, 78, 82, 88, 86]
+},
+{
+label: 'Funnel / Conversion',
+skills: ['Data Analysis', 'Conversion', 'A/B Testing', 'Visualization', 'Mktg Analytics', 'SQL'],
+values: [88, 85, 82, 84, 86, 78]
+},
+{
+label: 'Campaign Performance',
+skills: ['Meta Ads', 'Google Ads', 'Optimization', 'Reporting', 'Data Analysis', 'Budgeting'],
+values: [90, 88, 85, 87, 84, 80]
+}
+];
+
+let chart;
+
+function buildLegend(idx) {
+const e = projects[idx];
+document.getElementById('skillLegend').innerHTML = e.skills.map((s, i) => `
+<div class="sli">
+<span class="sli-name">${s}</span>
+<div class="sli-bw"><div class="sli-bf" style="width:${e.values[i]}%"></div></div>
+<span class="sli-val">${e.values[i]}</span>
+</div>`).join('');
+}
+
+function initChart(idx) {
+const e = projects[idx];
+chart = new Chart(document.getElementById('radarChart').getContext('2d'), {
+type: 'radar',
+data: {
+labels: e.skills,
+datasets: [{
+data: e.values,
+backgroundColor: 'rgba(201,168,76,0.14)',
+borderColor: 'rgba(201,168,76,0.9)',
+borderWidth: 2,
+pointBackgroundColor: '#c9a84c',
+pointBorderColor: '#ffffff',
+pointBorderWidth: 1.5,
+pointRadius: 4,
+pointHoverRadius: 6
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: true,
+animation: { duration: 450, easing: 'easeInOutQuart' },
+plugins: { legend: { display: false } },
+scales: {
+r: {
+min: 0, max: 100,
+ticks: { display: false },
+grid: { color: 'rgba(255,255,255,0.06)' },
+angleLines: { color: 'rgba(255,255,255,0.06)' },
+pointLabels: {
+color: '#8a9bb0',
+font: { size: 10, family: 'Arial', weight: 'bold' }
+}
+}
+}
+}
+});
+}
+
+function switchExp(idx) {
+document.querySelectorAll('.exp-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+document.querySelectorAll('.exp-content').forEach((c, i) => c.classList.toggle('active', i === idx));
+const e = projects[idx];
+chart.data.labels = e.skills;
+chart.data.datasets[0].data = e.values;
+chart.update();
+document.getElementById('radarSub').textContent = e.label;
+buildLegend(idx);
+}
+
+window.switchExp = switchExp;
+
+document.addEventListener('DOMContentLoaded', function() {
+initChart(0);
+buildLegend(0);
+});
+</script>
+
+</body>
+</html>
